@@ -1,35 +1,40 @@
+#----------------------------------------------------
+# Creates a stateful set of 3 pods with nginx servers.
+# Each pod exposes port 80
+# A persistent volume is mounted to each pod
+#----------------------------------------------------
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: nginx-set
+  name: nginx-set                                    # Name of the set
 spec:
   selector:
      matchLabels:
-        app: nginx-pod
-  serviceName: nginx-svc
-  replicas: 3
+        app: nginx-pod                               # selector to identify pods that belong to the set
+  serviceName: nginx-svc                             # name of the service that controls the pods
+  replicas: 3                                        # number of replicas
   template:
      metadata:
         labels:
-          app: nginx-pod
+          app: nginx-pod                             # pod lable - required to identify pods belong to the set
      spec:
-        terminationGracePeriodSeconds: 10
+        terminationGracePeriodSeconds: 10            # time given to a pod to terminate graceful before it will be killed
         containers:
-        - name: nginx-container
-          image: nginx:latest
+        - name: nginx-container                      # container name
+          image: nginx:latest                        # docker image for the container
           ports:
-          - containerPort: 80
-            name: http
+          - containerPort: 80                        # port exposed by the container
           volumeMounts:
-          - name: www
-            mountPath: /var/www/data
+          - name: www                                # name of the persistent volume claim template 
+                                                     # (must match to the name of a template in the volumeClaimTemplate) 
+            mountPath: /var/www/data            
   volumeClaimTemplates:
   - metadata:
-       name: www
+       name: www                                     # name of the persistent volume template
        annotations:
-           volume.beta.kubernetes.io/storage-class: www
+           volume.beta.kubernetes.io/storage-class: www   # storage-class must match to the name of an existing StorageClass object 
     spec:
-       accessModes: [ "ReadWriteOnce" ]
+       accessModes: [ "ReadWriteOnce" ]              # persistent volume claim access mode (can be attached to one pod)
        resources:
           requests:
-             storage: 1Gi
+             storage: 1Gi                            # size of the persistent storage

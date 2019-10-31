@@ -1,7 +1,16 @@
+#----------------------------------------
+# Creates a storage class that provides
+# persistent volumest to the stateful set
+# in the AWS cloud
+#----------------------------------------
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: www
-provisioner: kubernetes.io/aws-ebs
+  name: www                              # name of the storage class (must be referenced from the stateful set)
+provisioner: kubernetes.io/aws-ebs       # provisioner - a plugin that provides persitent storage, in this case - AWS
 parameters:
-   type: gp2
+   type: gp2                             # type of the storage: 
+                                         #     gp2 (general purpose SSD)
+                                         #     io1 (fast SSD)
+                                         #     st1(performant HDD)
+                                         #     sc1 (cold HDD)                       

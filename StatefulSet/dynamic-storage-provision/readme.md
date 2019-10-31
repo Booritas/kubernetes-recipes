@@ -38,11 +38,11 @@ nginx-set-1   1/1     Running   0          4m
 nginx-set-2   1/1     Running   0          3m23s
 
 $ # check available persistent volume claims
-$ kubectl get pvc
-NAME              STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-www-nginx-set-0   Bound    pvc-ef3d910b-fc22-11e9-a19c-0a7942f17bf8   1Gi        RWO            www            2m48s
-www-nginx-set-1   Bound    pvc-00a64c98-fc23-11e9-a19c-0a7942f17bf8   1Gi        RWO            www            2m19s
-www-nginx-set-2   Bound    pvc-1719af3d-fc23-11e9-a19c-0a7942f17bf8   1Gi        RWO            www            101s
+$ kubectl get pvc | awk {'print $1,$2,$3,$4,$5,$6'} | column -t
+NAME             STATUS  VOLUME                                    CAPACITY  ACCESS  MODES
+www-nginx-set-0  Bound   pvc-ef3d910b-fc22-11e9-a19c-0a7942f17bf8  1Gi       RWO     www
+www-nginx-set-1  Bound   pvc-00a64c98-fc23-11e9-a19c-0a7942f17bf8  1Gi       RWO     www
+www-nginx-set-2  Bound   pvc-1719af3d-fc23-11e9-a19c-0a7942f17bf8  1Gi       RWO     www
 
 $ # check allocated persistent volumes
 $ kubectl get pv | awk {'print $1,$2,$3,$4,$6'} | column -t

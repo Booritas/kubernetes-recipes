@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx-set
+spec:
+  selector:
+     matchLabels:
+        app: nginx-pod
+  serviceName: nginx-svc
+  replicas: 3
+  template:
+     metadata:
+        labels:
+          app: nginx-pod
+     spec:
+        terminationGracePeriodSeconds: 10
+        containers:
+        - name: nginx-container
+          image: nginx:latest
+          ports:
+          - containerPort: 80
+            name: http
+          volumeMounts:
+          - name: www
+            mountPath: /var/www/data
+  volumeClaimTemplates:
+  - metadata:
+       name: www
+       annotations:
+           volume.beta.kubernetes.io/storage-class: www
+    spec:
+       accessModes: [ "ReadWriteOnce" ]
+       resources:
+          requests:
+             storage: 1Gi

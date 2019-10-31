@@ -57,3 +57,58 @@ NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   100.64.0.1   <none>        443/TCP   82s
 nginx-svc    ClusterIP   None         <none>        80/TCP    75s
 ```
+Check if one pod is reachable from another
+```
+$ # login to the bash of the firs pod (nginx-set-0)
+$ kubectl -it exec nginx-set-0 bash
+root@nginx-set-0:/#
+$ # install curl
+root@nginx-set-0:/# apt update
+...
+root@nginx-set-0:/# apt install curl
+...
+# send a http request to the service
+root@nginx-set-0:/# curl nginx-svc
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title
+...
+# send a http request directly to the third pod 
+root@nginx-set-0:/# curl nginx-set-2.nginx-svc
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title
+```
+To check persistance of the volumes we do following:
+- create a text file in the first pod
+- delete the first pod
+- wait until the pod is recreated
+- login to the pod and check the file
+```
+$ # login to the bash of the firs pod (nginx-set-0)
+$ kubectl -it exec nginx-set-0 bash
+root@nginx-set-0:/#
+$ # create a text file
+root@nginx-set-0:/# cat << EOF > /var/www/data/text.txt
+This is the file
+EOF
+# exit the pod
+root@nginx-set-0:/# exit
+$
+# delete the first pod
+$ kubectl delete pod/nginx-set-0
+pod "nginx-set-0" deleted
+# wait until pod is recreated
+$ kubectl get pod
+NAME          READY   STATUS    RESTARTS   AGE
+nginx-set-0   1/1     Running   0          50s
+nginx-set-1   1/1     Running   0          50m
+nginx-set-2   1/1     Running   0          49m
+# login to the first pod and check the file
+$ kubectl -it exec nginx-set-0 bash
+root@nginx-set-0:/# cat /var/www/data/text.txt
+This is the file
+```
+

@@ -1,13 +1,14 @@
+#-------------------------------------------
+# Creates a headless service for a stateful
+# set of pods
+#-------------------------------------------
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-svc
-  labels:
-      app: nginx
+  name: nginx-svc       # name of the service
 spec:
   ports:
-  - port: 80
-    name: http
-  clusterIP: None
+  - port: 80            # port exposed by the service 
+  clusterIP: None       # this record indicates a headless service: no cluster IP will be created, only endpoints
   selector:
-     app: nginx-pod
+     app: nginx-pod     # selection of pods that belong to the service

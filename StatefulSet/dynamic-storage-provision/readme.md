@@ -57,7 +57,11 @@ NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   100.64.0.1   <none>        443/TCP   82s
 nginx-svc    ClusterIP   None         <none>        80/TCP    75s
 ```
-Check if one pod is reachable from another
+Check if one pod is reachable from another. For this purpose we do the following:
+- login to the first pod
+- install curl
+- send a http request to the service
+- send a http request directly to the third pod
 ```
 $ # login to the bash of the firs pod (nginx-set-0)
 $ kubectl -it exec nginx-set-0 bash
@@ -83,7 +87,7 @@ root@nginx-set-0:/# curl nginx-set-2.nginx-svc
 <head>
 <title>Welcome to nginx!</title
 ```
-To check persistance of the volumes we do following:
+To check persistance of the attached volumes we do following:
 - create a text file in the first pod
 - delete the first pod
 - wait until the pod is recreated

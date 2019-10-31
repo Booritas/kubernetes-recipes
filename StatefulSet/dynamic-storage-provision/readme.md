@@ -67,6 +67,7 @@ root@nginx-set-0:/# apt update
 ...
 root@nginx-set-0:/# apt install curl
 ...
+
 # send a http request to the service
 root@nginx-set-0:/# curl nginx-svc
 <!DOCTYPE html>
@@ -74,6 +75,7 @@ root@nginx-set-0:/# curl nginx-svc
 <head>
 <title>Welcome to nginx!</title
 ...
+
 # send a http request directly to the third pod 
 root@nginx-set-0:/# curl nginx-set-2.nginx-svc
 <!DOCTYPE html>
@@ -90,25 +92,29 @@ To check persistance of the volumes we do following:
 $ # login to the bash of the firs pod (nginx-set-0)
 $ kubectl -it exec nginx-set-0 bash
 root@nginx-set-0:/#
+
 $ # create a text file
 root@nginx-set-0:/# cat << EOF > /var/www/data/text.txt
 This is the file
 EOF
+
 # exit the pod
 root@nginx-set-0:/# exit
 $
+
 # delete the first pod
 $ kubectl delete pod/nginx-set-0
 pod "nginx-set-0" deleted
+
 # wait until pod is recreated
 $ kubectl get pod
 NAME          READY   STATUS    RESTARTS   AGE
 nginx-set-0   1/1     Running   0          50s
 nginx-set-1   1/1     Running   0          50m
 nginx-set-2   1/1     Running   0          49m
+
 # login to the first pod and check the file
 $ kubectl -it exec nginx-set-0 bash
 root@nginx-set-0:/# cat /var/www/data/text.txt
 This is the file
 ```
-

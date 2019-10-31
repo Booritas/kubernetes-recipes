@@ -1,4 +1,5 @@
 # Creation of StatfulSet with dynamic storage provision
+The files it this folder create a stateful set of pods. Dynamic storage provisioning in AWS is is used for persistence.
 Files:
 - storage-class.yaml - Creates a storage class for the stateful set
 - statefulset.yaml - Creates the stateful set

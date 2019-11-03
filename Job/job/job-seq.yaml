@@ -1,0 +1,18 @@
+#-------------------------------------------------------------
+# Creates a job with 4 sequential executions
+#-------------------------------------------------------------
+apiVersion: batch/v1
+kind: Job
+metadata:
+   name: seq                                        # Job name
+spec:
+   completions: 4                                   # 4 Successful completions are expected
+   parallelism: 1                                   # Only one pod at a time is allowed
+   template:
+     spec:
+         containers:
+         - name: busy-box                           # Container name
+           image: busybox:latest                    # Containers docker image
+           command: ["/bin/sh","-c","sleep 60"]     # Sleep for a minute and exit
+         restartPolicy: Never                       # Never restart successfuly ended pod
+   backoffLimit: 2                                  # If failed, try once more

@@ -1,0 +1,19 @@
+#----------------------------------------------------
+# Creates 4 jobs that can be executed in parallel.
+# Number of simultaneous running jobs is limited by 3
+#----------------------------------------------------
+apiVersion: batch/v1
+kind: Job
+metadata:
+   name: prll                                       # Job name
+spec:
+   completions: 4                                   # Expectec 4 successful job completions
+   parallelism: 3                                   # 3 jobs can run in parallel
+   template:
+     spec:
+         containers:
+         - name: busy-box                           # Container name
+           image: busybox:latest                    # Containers docker image
+           command: ["/bin/sh","-c","sleep 60"]     # Sleep for a minute and exit
+         restartPolicy: Never                       # Never restart the pod 
+   backoffLimit: 2                                  # In case of falure, try one more time

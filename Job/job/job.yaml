@@ -1,13 +1,19 @@
+#----------------------------------------------------
+# Creates a single job. The
+# The job will be executed only once unless failed.
+# If the job is failed, another attempt to execute it
+# will be done
+#----------------------------------------------------
 apiVersion: batch/v1
 kind: Job
 metadata:
-   name: sleep
+   name: sleep                                     # Job name
 spec:
    template:
      spec:
          containers:
-         - name: busy-box
-           image: busybox:latest
-           command: ["/bin/sh","-c","sleep 60"]
-         restartPolicy: Never
-   backoffLimit: 2
+         - name: busy-box                          # Container name
+           image: busybox:latest                   # Containers docker image
+           command: ["/bin/sh","-c","sleep 60"]    # Just sleep for 1 minute and exit
+         restartPolicy: Never                      # Never restart the pod upon successful completon
+   backoffLimit: 2                                 # If the job is failed, try once more time

@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+   name: sleep
+spec:
+   template:
+     spec:
+         containers:
+         - name: busy-box
+           image: busybox:latest
+           command: ["/bin/sh","-c","sleep 60"]
+         restartPolicy: Never
+   backoffLimit: 2

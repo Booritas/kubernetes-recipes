@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: my-daemon-set                    # name of the daemon set
+spec:
+  selector:                              # selector identifies pods belonging
+    matchLabels:                         # to the daemon set by matching of
+      app: my-daemons                    # the value of the label "app"
+  template:
+    metadata:
+      labels:
+        app: my-daemons                  # the label to identiy that the pod belongs to the daemon set
+    spec:
+      containers:
+      - name: daemon-set                 # container name
+        image: busybox:latest            # minimal embedded linux
+        command: ["/bin/sh", "-c"]       # execute sleep for 1 hour
+        args: ["sleep 3600"]

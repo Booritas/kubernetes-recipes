@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: storage-claim               # Name of the storage claim
+spec:
+  storageClassName: node-storage    # storage class - must be equal to the corresponded class in a PersistentVolume
+  accessModes:
+    - ReadWriteOnce                 # Accessible by a single pod
+  resources:
+    requests:
+      storage: 5Gi                  # Amount of storage reserved by this claim

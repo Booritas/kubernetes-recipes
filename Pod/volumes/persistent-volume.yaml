@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: persistent-data            # Name for the persistent volume
+spec:
+  storageClassName: node-storage   # Name for the storage class - will be used to claime the storage
+  capacity:
+    storage: 10Gi                  # Amount of node local storage reserved for the volume
+  accessModes:
+    - ReadWriteOnce                # Only one pod at a time can access the storage
+  hostPath:
+    path: "/mnt/data"              # storage location on the node

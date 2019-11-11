@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-volume               # pod name
+spec:
+  containers:
+  - name: container-with-volume       # container name
+    image: ubuntu:latest              # container docker image
+    command: ["/bin/sh", "-c"]        # execute sleep for 1 hour
+    args: ["sleep 3600"]
+    volumeMounts:
+    - mountPath: "/mnt/data"          # location of the mounted volume
+      name: container-data            # name of the volume (must be defined in "volumes" tag below
+  volumes:
+  - name: container-data              # name of the volume
+    persistentVolumeClaim:
+      claimName: storage-claim        # name of an existing PersistentStorageClaim object reserved for this purpose

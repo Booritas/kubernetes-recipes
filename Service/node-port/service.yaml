@@ -1,0 +1,18 @@
+#
+# Service for exposing port outside of the cluster
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport-svc
+  labels:
+    app: nginx
+spec:
+ type: NodePort                      # service type (exposing a port outside of the cluster)
+ selector:
+    app: nginx
+ ports:
+    - nodePort: 30692                # port exposed by servece (in range 30000-32767) (masterIP:30692)
+      port: 80                       # port exposed by service (clusterIP:80)
+      protocol: TCP                  # network protocol
+      targetPort: 80                 # port exposed by pods

@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-deployment        # Name of the deployment object
+spec:
+  replicas: 3                    # Number of instances in the deployment
+  selector:                      # Selector identifies pods to be
+      matchLabels:               #     part of the deployment 
+         app: my-deployment      #     by matching of the label "app" 
+  template:                      # Templates describes pods of the deployment
+    metadata:
+      labels:                    # Defines key-value map
+        app: my-deployment       # alligns value "my-deployment" to key "app"
+    spec:
+      containers:                # Lists all containers in the pod
+      - name: deploymetnt-pod
+        image: nginx:1.17.4

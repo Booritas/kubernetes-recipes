@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: simple-rc                # Name of the replica set
+spec:
+  replicas: 3                    # Number of instances in the replica controller
+  selector:                      # Selector identifies pods to be
+      app: my-rc                 #     by matching of the label "app" 
+  template:                      # Templates describes pods of the replica set
+    metadata:
+      labels:                    # Defines key-value map
+        app: my-rc               # alligns value "my-replica" to key "app"
+    spec:
+      containers:                # Lists all containers in the pod
+      - name: rc-pod
+        image: nginx:1.17.4

@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: simple-replicaset        # Name of the replica set
+spec:
+  replicas: 3                    # Number of instances in the replica set
+  selector:                      # Selector identifies pods to be
+    matchLabels:                 #     included in the replica set
+      app: my-replica            #     by matching of the label "app" 
+  template:                      # Templates describes pods of the replica set
+    metadata:
+      labels:                    # Defines key-value map
+        app: my-replica          # alligns value "my-replica" to key "app"
+    spec:
+      containers:                # Lists all containers in the pod
+      - name: replica-pod
+        image: nginx:1.17.4

@@ -2,7 +2,7 @@
 # Creates cron job that starts every minute.
 # Only one job at a time is allowed.
 #----------------------------------------------------
-appVersion: bathch/v1beta1
+apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: cron-job                                    # Name of the job

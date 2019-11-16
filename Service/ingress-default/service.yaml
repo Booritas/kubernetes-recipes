@@ -1,0 +1,15 @@
+#
+# Service for exposing a port inside of the cluster
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service               # service name
+spec:
+  type: NodePort                    # type of the service (exposing port inside of a cluster)
+  selector:                         # selection of pods
+    app: nginx                      # that belong to the service
+  ports:
+  - protocol: TCP
+    port: 8090                      # port exposed by the service
+    targetPort: 80                  # port exposed by the pods

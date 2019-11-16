@@ -1,0 +1,16 @@
+#
+# Pod wint nginx server
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod                   # pod name
+  labels:
+     app: nginx
+spec:
+  containers:
+  - name: nginx-container           # container name
+    image: nginx:1.17.4             # container docker image
+    ports:
+    - containerPort: 80             # expose port 80
+---

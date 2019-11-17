@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: simple-deployment        # Name of the deployment object
-  app: nginx                     
+  labels:
+    app: nginx                     
 spec:
   replicas: 3                    # Number of instances in the deployment
   selector:                      # Selector identifies pods to be

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-deployment        # Name of the deployment object
+  app: nginx                     
+spec:
+  replicas: 3                    # Number of instances in the deployment
+  selector:                      # Selector identifies pods to be
+      matchLabels:               #     part of the deployment 
+         app: nginx              #     by matching of the label "app" 
+  template:                      # Templates describes pods of the deployment
+    metadata:
+      labels:                    # Defines key-value map
+        app: nginx               # Label to be recognized by other objects
+    spec:                        #     as deployment or service
+      containers:                # Lists all containers in the pod
+      - name: nginx-pod          # container name
+        image: nginx:1.17.4      # container docker image
+        ports:
+        - containerPort: 80      # port exposed by container

@@ -1,0 +1,2 @@
+# Using Kubernetes Ingress object to forward trafic to single service 
+According to [official kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/ingress/) Ingeress is an API object that manages access to the services in a cluster, typicaly HTTP. Ingress can provide load balancing, SSL termination and name based virtual hosting. In other words, you need Ingress if you want to expose your cluster fo ourside world. Ingress object allows to implement rules to define how exactly the trafic

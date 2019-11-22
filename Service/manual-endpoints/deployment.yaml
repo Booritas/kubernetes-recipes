@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ngix-dpl                 # Name of the deployment object
+  name: nginx-dpl                 # Name of the deployment object
   labels:
     app: nginx                     
 spec:

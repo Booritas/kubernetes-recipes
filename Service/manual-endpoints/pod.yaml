@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bridge                        # pod name
+spec:
+  containers:
+  - name: bridge                      # container name
+    image: ubuntu                     # container docker image
+    command: ["/bin/sh"]              # 

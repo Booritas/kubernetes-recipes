@@ -64,5 +64,4 @@ $ curl 100.68.123.239
 <head><title>Welcome to nginx!</title>
 ...
 ```
-
-                                                                                                                                         
+Note: Endpoint IP addresses cannot be the cluster IPs of other Kubernetes Services, because kube-proxy doesn’t support virtual IPs as a destination.                                                                                                                                   

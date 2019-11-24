@@ -36,6 +36,7 @@ Note that request was forwarded to the external server.
 Please note, if you try to send HTTP request to the service,  you will get 403 error code, because this server checks the url and refuses to serve it if it does not correspond to the original server url. Anyway, the requests reaches the server:
 ```
 $ curl -v test-svc
+
 > GET / HTTP/1.1
 > User-Agent: curl/7.35.0
 > Host: test-svc
@@ -47,6 +48,4 @@ $ curl -v test-svc
 < Content-Length: 9
 <
 Forbidden
-```
-```
 ```

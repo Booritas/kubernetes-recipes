@@ -10,7 +10,7 @@ spec:
    type: ExternalName
    externalName: dummy.restapiexample.com
 ```
-Different as for another types of **Service**, this component does not create any cluster IP. Client pods have to use internal service name. In this case it is *test-svc* or from another namespace *test-svc.default.svc.cluster.local*.
+Different as for another types of **Service**, this component does not create any cluster IP. Client pods have to use internal service name. In this case, it is *test-svc* or from another namespace *test-svc.default.svc.cluster.local*.
 ```
 $ kubectl apply -f service.yaml
 service/test-svc created

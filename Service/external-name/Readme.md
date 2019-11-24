@@ -20,7 +20,7 @@ NAME         TYPE           CLUSTER-IP   EXTERNAL-IP                PORT(S)   AG
 kubernetes   ClusterIP      100.64.0.1   <none>                     443/TCP   7d21h
 test-svc     ExternalName   <none>       dummy.restapiexample.com   <none>    12s
 ```
-Now we can check if it works:
+Now we can check if it works. To do it, we start a new pod in the same namespace, and ping the service. In response, we should get IP of the external server.
 ```
 $ kubectl run curl --image=radial/busyboxplus:curl -i --tty --generator=run-pod/v1
 If you don't see a command prompt, try pressing enter.
@@ -33,3 +33,20 @@ PING test-svc (34.250.200.167): 56 data bytes
 64 bytes from 34.250.200.167: seq=4 ttl=62 time=0.608 ms
 ```
 Note that request was forwarded to the external server.
+Please note, if you try to send HTTP request to the service,  you will get 403 error code, because this server checks the url and refuses to serve it if it does not correspond to the original server url. Anyway, the requests reaches the server:
+```
+$ curl -v test-svc
+> GET / HTTP/1.1
+> User-Agent: curl/7.35.0
+> Host: test-svc
+> Accept: */*
+>
+< HTTP/1.1 403 Forbidden
+< Content-Type: text/plain
+< Date: Sun, 24 Nov 2019 17:08:12 GMT
+< Content-Length: 9
+<
+Forbidden
+```
+```
+```

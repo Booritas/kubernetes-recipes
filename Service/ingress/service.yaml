@@ -13,3 +13,16 @@ spec:
   - protocol: TCP
     port: 8090                      # port exposed by the service
     targetPort: 80                  # port exposed by the pods
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+   name: nginx-ingress
+spec:
+   rules:
+   - http:
+      paths:
+      - path: /test
+        backend:
+           serviceName: nginx-service
+           servicePort: 8090

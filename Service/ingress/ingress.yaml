@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+   name: my-ingress
+spec:
+   rules:
+   - http:
+      paths:
+      - path: /wolf
+        backend:
+         serviceName: wolf-svc
+         servicePort: 8080
+      - path: /rabbit
+        backend:
+         serviceName: rabbit-svc
+         servicePort: 8090

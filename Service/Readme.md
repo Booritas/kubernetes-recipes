@@ -7,7 +7,7 @@
 How does a Service recognize the pods it should serve? There are two ways to define the pods:
 - pod selector,
 - manualy created Endpoints object.
-Endpoints objects contains a list of endpoints: IP addresses and ports. Each Service object should have an Endpoints object. In one case, it is created automatically from pod selector, in another - manually.
+An Endpoints object contains a list of endpoints: IP addresses and ports. There is a one-to-one relationship between an Endpoinds object and a  Service object. Service object is not functional without endpoints. Endpoints object can be created automatically from pod selector defined in the Service or manually.
 Codesnippet below uses pod selector. Endpoints objects are created automatically by Kubernetes.
 ```yaml
 apiVersion: v1
@@ -39,6 +39,19 @@ $ kubectl get endpoints
 NAME                 ENDPOINTS                                                  AGE
 kubernetes           172.20.41.26:443                                           20h
 nginx-nodeport-svc   100.96.6.29:80,100.96.6.32:80,100.96.7.42:80 + 1 more...   24s
+```
+Manually created Endpoints can be useful if you neet to connect your cluster with an external server. Endpoints object shall have the same name as a corresponded Service. Here is an example of Endpoints manifiest:
+```yaml
+apiVersion: "v1"
+kind: "Endpoints"
+  metadata:
+    name: "external-server" 
+  subsets: 
+    - addresses:
+      - ip: "111.10.120.14" #The IP Address of the external web server
+      ports:
+      - port: 80 
+        name: "http"
 ```
 ## Creation of a Service object
 There are two possibility to create a Service object:

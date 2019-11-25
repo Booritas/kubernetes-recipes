@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-   name: my-ingress
+   name: my-ingress                 # name of the ingress object
 spec:
    rules:
    - http:
       paths:
-      - path: /wolf
+      - path: /wolf                 # route all /wolf requests to the wolf service
         backend:
-         serviceName: wolf-svc
-         servicePort: 8080
-      - path: /rabbit
+         serviceName: wolf-svc      # name of the target service
+         servicePort: 8080          # port of the target service
+      - path: /rabbit               # route all /rabbit requests to the rabbit service
         backend:
-         serviceName: rabbit-svc
-         servicePort: 8090
+         serviceName: rabbit-svc    # name of the target service
+         servicePort: 8090          # port of the target service

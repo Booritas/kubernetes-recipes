@@ -71,13 +71,15 @@ Create the ingress object:
 $ kubectl apply -f ingress.yaml
 
 ingress.extensions/my-ingress created
+ingress.extension/def-ingress created
 ```
 Check if the ingress created correctly:
 
 ```
 $ kubectl get ingress
 NAME         HOSTS   ADDRESS                                                                   PORTS   AGE
-my-ingress   *       a041a654408af11eaa19c0a7942f17bf-1087978017.eu-west-1.elb.amazonaws.com   80      61s
+def-ingress   *       a041a654408af11eaa19c0a7942f17bf-1087978017.eu-west-1.elb.amazonaws.com   80      30s
+my-ingress    *       a041a654408af11eaa19c0a7942f17bf-1087978017.eu-west-1.elb.amazonaws.com   80      61s
 ```
 Now try to use the ingress and check if requests are routed correctly:
 ```

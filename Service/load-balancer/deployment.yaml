@@ -1,0 +1,25 @@
+#
+# Deployment for several echo pods
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo                       # Name of the deployment object
+  labels:
+    app: load-balancer                     
+spec:
+  replicas: 2                       # Number of instances in the deployment
+  selector:                         # Selector identifies pods to be
+      matchLabels:                  #     part of the deployment 
+         app: load-balancer         #     by matching of the label "app" 
+  template:                         # Templates describes pods of the deployment
+    metadata:
+      labels:                       # Defines key-value map
+        app: load-balancer          # Label to be recognized by other objects
+    spec:                           #     as deployment or service
+      containers:                   # Lists all containers in the pod
+      - name: echo                  # container name
+        image: hashicorp/http-echo  # container docker image
+        args: ["-listen=:8080", "-text='Hello there!'"]
+        ports:
+        - containerPort: 8080       # port exposed by container

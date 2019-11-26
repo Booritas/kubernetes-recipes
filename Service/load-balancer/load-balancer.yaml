@@ -1,0 +1,15 @@
+#
+# LoadBalancer Service for echo pods
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-svc                      # service name
+spec:
+  type: LoadBalancer                # type of the service (exposing port inside of a cluster)
+  selector:                         # selection of pods
+    app: load-balancer              # that belong to the service
+  ports:
+  - protocol: TCP
+    port: 8080                      # port exposed by the service
+    targetPort: 8080                # port exposed by the pods

@@ -11,6 +11,7 @@ Here are some ingress-controllers:
 
 This topic contains 2 files:
 - deployment.yaml - creates 2 services (wolf-svc and rabbit-svc), each connected to 2 pods with echo servers.
+- default-backend.yaml - creates a pod with a service for a default backend. All requests that cannot be properly routed go to the default backend.
 - ingress.yaml - creates an Ingress object that implements following rulles:
    - /wolf requests are forwarded to service wolf-svc:8080
    - /rabbit requests are forwarded to service rabbit-svc:8090

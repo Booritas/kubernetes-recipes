@@ -1,0 +1,41 @@
+#
+# Deployment for default backend
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: def-backend                 # Name of the deployment object
+  labels:
+    app: def-backend                     
+spec:
+  replicas: 1                       # Number of instances in the deployment
+  selector:                         # Selector identifies pods to be
+      matchLabels:                  #     part of the deployment 
+         app: def-backend           #     by matching of the label "app" 
+  template:                         # Templates describes pods of the deployment
+    metadata:
+      labels:                       # Defines key-value map
+        app: def-backend            # Label to be recognized by other objects
+    spec:                           #     as deployment or service
+      containers:                   # Lists all containers in the pod
+      - name: echo                  # container name
+        image: hashicorp/http-echo  # container docker image
+        args: ["-listen=:8070", "-text='Default backend!'"]
+        ports:
+        - containerPort: 8070       # port exposed by container
+---
+#
+# Service for default backend
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: def-backend-svc             # service name
+spec:
+  type: ClusterIP                   # type of the service (exposing port inside of a cluster)
+  selector:                         # selection of pods
+    app: def-backend                # that belong to the service
+  ports:
+  - protocol: TCP
+    port: 8070                      # port exposed by the service
+    targetPort: 8070                # port exposed by the pods

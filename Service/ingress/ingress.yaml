@@ -1,3 +1,12 @@
+#
+# Ingress for routing of requests
+# to the corresponded services
+# All requests with url /wolf will be 
+#  routed to the wolf-svc:8080 service
+#  Requests with url /rabbit will be
+#  routed to rabbit-svc:8090
+#  The rest goes to the default backend
+#
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -14,3 +23,18 @@ spec:
         backend:
          serviceName: rabbit-svc
          servicePort: 8090
+---
+#
+# Default backend ingress to cach
+# all requests that cannot be 
+# properly routed
+#
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+   name: def-ingress
+spec:
+   backend:
+      serviceName: def-backend-svc
+      servicePort: 8070
+

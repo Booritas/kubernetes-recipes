@@ -11,5 +11,5 @@ spec:
     app: load-balancer              # that belong to the service
   ports:
   - protocol: TCP
-    port: 8080                      # port exposed by the service
+    port: 80                        # port exposed by the service
     targetPort: 8080                # port exposed by the pods

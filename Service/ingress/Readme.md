@@ -84,4 +84,8 @@ $ curl -L --insecure a041a654408af11eaa19c0a7942f17bf-1087978017.eu-west-1.elb.a
 
 $ curl -L --insecure a041a654408af11eaa19c0a7942f17bf-1087978017.eu-west-1.elb.amazonaws.com/rabbit
 'Rabbit server!'
+
+$  curl -L --insecure a041a654408af11eaa19c0a7942f17bf-1087978017.eu-west-1.elb.amazonaws.com/donkey
+'Default backend!'
 ```
+
